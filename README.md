@@ -1,57 +1,12 @@
-# In this step:
+To install local assets:
 
-We will delete a user from mongodb.
+* install NodeJs (https://nodejs.org)
+* install `grunt-cli` globally via `npm install -g grunt-cli`
+* run `npm install` from the root directory of the project
+* run `grunt` from the root directory of the project to compile CSS
 
-This is identical to what we did in the last step to GET a user.
+To run the application:
+* install the app with `go install github.com/lss/webapp`
+* run with `bin/webapp`
+* navigate to `http://localhost:8000/html/home.html`
 
-First we will get the user id from the URL
-
-```
-id := p.ByName("id")
-```
-
-Next we will Verify that the id is an ObjectId
-
-```
-if !bson.IsObjectIdHex(id) {
-	w.WriteHeader(http.StatusNotFound) // 404
-	return
-}
-```
-
-ObjectIdHex returns an ObjectId from the provided hex representation.
-
-```
-	oid := bson.ObjectIdHex(id)
-```
-
-Next, add code to delete the user
-
-```
-if err := uc.session.DB("go_rest_tutorial").C("users").RemoveId(oid); err != nil {
-	w.WriteHeader(404)
-	return
-}
-```
-
-# Run this code
-
-1. Start your server
-
-## DELETE a user from mongodb
-
-Enter this at the terminal
-
-```
-curl -X POST -H "Content-Type: application/json" -d '{"name":"Miss Moneypenny","gender":"female","age":27}' http://localhost:8080/user
-```
-
-```
-curl http://localhost:8080/user/<enter-user-id-here>
-
-```
-
-
-```
-curl -X DELETE http://localhost:8080/user/<enter-user-id-here>
-```
